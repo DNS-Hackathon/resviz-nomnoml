@@ -7,13 +7,12 @@
 {% endblock %}
 {% block javascript %}
 <script>
-const prefix = '{{ config.get("PREFIX", "") }}'
 $(document).ready(() => {
     let dn = window.location.search
     let m, cnt = 0
 
     if (dn) {
-        $.getJSON(`/dig/${dn.substr(1)}`, (data) => {
+        $.getJSON(`dig/${dn.substr(1)}`, (data) => {
             $(data).each((idx, item) => {
                 if (m) {
                     m = m + ` ${item.question.name} -> [${item.server}]`
