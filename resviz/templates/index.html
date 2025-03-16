@@ -7,6 +7,7 @@
 {% endblock %}
 {% block javascript %}
 <script>
+const prefix = '{{ config.get("PREFIX", "") }}'
 $(document).ready(() => {
     let dn = window.location.search
     let m, cnt = 0
@@ -14,13 +15,11 @@ $(document).ready(() => {
     if (dn) {
         $.getJSON(`/dig/${dn.substr(1)}`, (data) => {
             $(data).each((idx, item) => {
-                // console.log(item)
                 if (m) {
                     m = m + ` ${item.question.name} -> [${item.server}]`
                 } else {
                     m = `[${item.server}]`
                 }
-                console.log(m)
 
                 let cv = $(`<canvas id="c${cnt}" class="position-absolute top-0 start-50 translate-middle-x"></canvas>`)
                 nomnoml.draw(cv[0], m)
@@ -33,8 +32,6 @@ $(document).ready(() => {
             })
         })
     }
-
-    // $('#target-canvas2').hide().delay(2000).fadeIn()
 })
 </script>
 {% endblock %}
