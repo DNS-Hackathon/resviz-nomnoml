@@ -23,7 +23,10 @@ $(document).ready(() => {
                 let cv = $(`<canvas id="c${cnt}" class="position-absolute top-0 start-50 translate-middle-x"></canvas>`)
                 nomnoml.draw(cv[0], m)
                 if (cnt) {
-                    cv.hide().delay(1000 * cnt).fadeIn()
+                    let cnt_ = cnt - 1
+                    cv.hide().delay(1000 * cnt).fadeIn(() => {
+                        $(`#c${cnt_}`).fadeOut()
+                    })
                 }
                 cnt += 1
 
