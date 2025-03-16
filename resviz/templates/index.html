@@ -15,7 +15,7 @@ $(document).ready(() => {
         $.getJSON(`dig/${dn.substr(1)}`, (data) => {
             $(data).each((idx, item) => {
                 if (m) {
-                    m = m + ` ${item.question.name} -> [${item.server}]`
+                    m = m + ` -> [${item.server}]`
                 } else {
                     m = `[${item.server}]`
                 }
