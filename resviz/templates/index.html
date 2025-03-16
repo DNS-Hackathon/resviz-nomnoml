@@ -1,0 +1,40 @@
+{% extends "body.html" %}
+{% block content %}
+<div class="container-fluid my-4">
+    <div id="canvas" class="position-relative">
+    </div>
+</div>
+{% endblock %}
+{% block javascript %}
+<script>
+$(document).ready(() => {
+    let dn = window.location.search
+    let m, cnt = 0
+
+    if (dn) {
+        $.getJSON(`/dig/${dn.substr(1)}`, (data) => {
+            $(data).each((idx, item) => {
+                // console.log(item)
+                if (m) {
+                    m = m + ` ${item.question.name} -> [${item.server}]`
+                } else {
+                    m = `[${item.server}]`
+                }
+                console.log(m)
+
+                let cv = $(`<canvas id="c${cnt}" class="position-absolute top-0 start-50 translate-middle-x"></canvas>`)
+                nomnoml.draw(cv[0], m)
+                if (cnt) {
+                    cv.hide().delay(1000 * cnt).fadeIn()
+                }
+                cnt += 1
+
+                cv.appendTo($('#canvas'))
+            })
+        })
+    }
+
+    // $('#target-canvas2').hide().delay(2000).fadeIn()
+})
+</script>
+{% endblock %}
